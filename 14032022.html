@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Love Story - For My Beloved</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            max-width: 600px;
+            width: 90%;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            backdrop-filter: blur(15px);
+        }
+
+        /* Mobile optimizations */
+        @media (max-width: 768px) {
+            .container {
+                width: 95%;
+                padding: 25px;
+                margin: 10px;
+            }
+            
+            h1 {
+                font-size: 26px;
+            }
+            
+            h2 {
+                font-size: 20px;
+            }
+            
+            .heart {
+                font-size: 50px;
+            }
+            
+            .password-input {
+                padding: 15px;
+                font-size: 16px;
+            }
+            
+            .unlock-btn {
+                padding: 15px 30px;
+                font-size: 16px;
+            }
+            
+            .memory-section {
+                padding: 20px;
+                margin: 25px 0;
+            }
+            
+            .final-message {
+                padding: 25px;
+            }
+            
+            .photo-placeholder {
+                width: 100px;
+                height: 100px;
+                font-size: 40px;
+            }
+        }
+
+        .login-screen {
+            display: block;
+        }
+
+        .main-content {
+            display: none;
+        }
+
+        .heart {
+            font-size: 70px;
+            color: #e74c3c;
+            margin-bottom: 25px;
+            animation: heartbeat 2s infinite;
+        }
+
+        @keyframes heartbeat {
+            0%, 50%, 100% { transform: scale(1); }
+            25%, 75% { transform: scale(1.15); }
+        }
+
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 25px;
+            font-size: 32px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            color: #34495e;
+            margin-bottom: 15px;
+            font-size: 24px;
+        }
+
+        h3 {
+            color: #e74c3c;
+            margin-bottom: 10px;
+            font-size: 20px;
+        }
+
+        p {
+            color: #555;
+            line-height: 1.8;
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+
+        .password-input {
+            width: 100%;
+            padding: 18px;
+            border: 3px solid #ddd;
+            border-radius: 15px;
+            font-size: 18px;
+            margin-bottom: 25px;
+            text-align: center;
+            transition: all 0.3s;
+            font-family: 'Georgia', serif;
+        }
+
+        .password-input:focus {
+            outline: none;
+            border-color: #e74c3c;
+            box-shadow: 0 0 20px rgba(231, 76, 60, 0.4);
+            transform: scale(1.02);
+        }
+
+        .unlock-btn {
+            background: linear-gradient(45deg, #e74c3c, #c0392b);
+            color: white;
+            border: none;
+            padding: 18px 40px;
+            border-radius: 30px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(231, 76, 60, 0.3);
+        }
+
+        .unlock-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(231, 76, 60, 0.4);
+        }
+
+        .memory-section {
+            margin: 35px 0;
+            padding: 25px;
+            background: linear-gradient(45deg, #ffeaa7, #fab1a0);
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.4s;
+            position: relative;
+            overflow: hidden;
+            border: 3px solid transparent;
+        }
+
+        .memory-section:hover {
+            transform: scale(1.05) rotate(1deg);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            border-color: #e74c3c;
+        }
+
+        .memory-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), transparent);
+            transition: left 0.6s;
+        }
+
+        .memory-section:hover::before {
+            left: 100%;
+        }
+
+        .memory-content {
+            display: none;
+            margin-top: 20px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            animation: fadeInUp 0.6s;
+            box-shadow: inset 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .photo-placeholder {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(45deg, #ff7675, #fd79a8);
+            border-radius: 50%;
+            margin: 20px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 50px;
+            color: white;
+            box-shadow: 0 10px 25px rgba(255, 118, 117, 0.4);
+            transition: transform 0.3s;
+        }
+
+        .photo-placeholder:hover {
+            transform: scale(1.1);
+        }
+
+        .final-message {
+            background: linear-gradient(45deg, #fd79a8, #fdcb6e);
+            padding: 40px;
+            border-radius: 20px;
+            margin-top: 40px;
+            animation: pulse 3s infinite;
+            border: 4px solid #e74c3c;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .final-message::before {
+            content: '💍';
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            font-size: 30px;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.03); }
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+
+        .sparkles {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+
+        .sparkle {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: #fff;
+            border-radius: 50%;
+            animation: sparkle 4s linear infinite;
+            box-shadow: 0 0 10px #fff;
+        }
+
+        @keyframes sparkle {
+            0% { opacity: 0; transform: translateY(100vh) rotate(0deg); }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { opacity: 0; transform: translateY(-20vh) rotate(360deg); }
+        }
+
+        .error {
+            color: #e74c3c;
+            font-size: 16px;
+            margin-top: 15px;
+            display: none;
+            background: rgba(231, 76, 60, 0.1);
+            padding: 10px;
+            border-radius: 10px;
+        }
+
+        .hint {
+            color: #7f8c8d;
+            font-size: 14px;
+            font-style: italic;
+            margin-top: 15px;
+            background: rgba(127, 140, 141, 0.1);
+            padding: 10px;
+            border-radius: 10px;
+        }
+
+        .countdown {
+            font-size: 18px;
+            color: #e74c3c;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+
+        .love-quote {
+            font-style: italic;
+            color: #8e44ad;
+            background: rgba(142, 68, 173, 0.1);
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+            border-left: 4px solid #8e44ad;
+        }
+    </style>
+</head>
+<body>
+    <div class="sparkles" id="sparkles"></div>
+    
+    <div class="container">
+        <!-- Login Screen -->
+        <div class="login-screen" id="loginScreen">
+            <div class="heart">💕</div>
+            <h1>For My One and Only</h1>
+            <p>You've received something very special, my love. This is our private digital sanctuary where I've poured my heart out just for you.</p>
+            <p><strong>Enter our special code to unlock this love letter...</strong></p>
+            <input type="password" class="password-input" id="passwordInput" placeholder="Our magical date... 💭">
+            <br>
+            <button class="unlock-btn" onclick="checkPassword()">Unlock My Heart 💖</button>
+            <div class="error" id="errorMsg">That's not quite right, my love. Think about the day that changed everything for us... the day we both knew this was forever 💕</div>
+            <div class="hint">💡 <strong>Hint:</strong> The day HarWinsha began - when everything changed for us (DDMMYYYY)</div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content" id="mainContent">
+            <div class="heart">💝</div>
+            <h1>Our Beautiful Love Story</h1>
+            <div class="countdown">
+                <strong>3 Years, 6 Months & Forever to Go...</strong>
+            </div>
+            <p>Welcome to our digital love letter, my darling. Every click will take you deeper into my heart and show you exactly why you mean everything to me...</p>
+
+            <div class="memory-section" onclick="toggleMemory('memory1')">
+                <h2>✨ The Yes/No Moment at Batok Garden</h2>
+                <h3>March 14, 2022 - The start of HarWinsha</h3>
+                <div class="memory-content" id="memory1">
+                    <div class="photo-placeholder">💕</div>
+                    <p><strong>When HarWinsha Officially Began</strong></p>
+                    <p>Batok Garden will forever be our special place. That moment when I asked you the question that changed everything, and you said yes! I still remember exactly how nervous I was, but seeing your smile made all my worries disappear.</p>
+                    <div class="love-quote">
+                        "March 14, 2022 - The day that marked the beginning of our beautiful journey as HarWinsha."
+                    </div>
+                    <p><em>We even have a picture from that perfect day! Every time I look at it, I'm reminded of how lucky I am that you said yes to being mine.</em></p>
+                </div>
+            </div>
+
+            <div class="memory-section" onclick="toggleMemory('memory2')">
+                <h2>❤️ Our First Date at Seah Im</h2>
+                <h3>Ayam Penyet and the beginning of forever</h3>
+                <div class="memory-content" id="memory2">
+                    <div class="photo-placeholder">🍽️</div>
+                    <p><strong>When I Knew You Were The One</strong></p>
+                    <p>Our first official date at Seah Im! Who knew that sharing ayam penyet could be so romantic? The food was amazing, but what made it perfect was you. The way we talked for hours, how comfortable everything felt, how you made me laugh...</p>
+                    <div class="love-quote">
+                        "That night at Seah Im, I realized I never wanted our conversations to end."
+                    </div>
+                    <p><em>Even now, every time we eat ayam penyet, I'm reminded of that first perfect date when I knew you were going to be someone very special in my life.</em></p>
+                </div>
+            </div>
+
+            <div class="memory-section" onclick="toggleMemory('memory3')">
+                <h2>🎬 Our First Movie - Thiruchithurambalam</h2>
+                <h3>Cinema dates and falling deeper</h3>
+                <div class="memory-content" id="memory3">
+                    <div class="photo-placeholder">🍿</div>
+                    <p><strong>Our First Cinema Adventure</strong></p>
+                    <p>Thiruchithurambalam - our first movie together! I was probably more focused on you than the screen. The way you got so into the movie, how you'd lean over to whisper comments, sharing popcorn... It felt so natural, like we'd been doing this forever.</p>
+                    <div class="love-quote">
+                        "That's when I knew - I wanted to experience every story, every adventure, every moment with you by my side."
+                    </div>
+                    <p><em>Now every time we watch movies together, I'm reminded of that first cinema date when I realized I never wanted to watch anything without you again.</em></p>
+                </div>
+            </div>
+
+            <div class="memory-section" onclick="toggleMemory('memory4')">
+                <h2>💖 Why I Love You More Every Day</h2>
+                <h3>A million reasons and counting</h3>
+                <div class="memory-content" id="memory4">
+                    <div class="photo-placeholder">🌹</div>
+                    <p><strong>All The Ways You're Perfect</strong></p>
+                    <p>Your laugh that lights up my whole world. The way you care for everyone around you. How you make me want to be a better person. Your kindness, your strength, your beautiful soul - I could list a thousand things and still not capture how amazing you are.</p>
+                    <div class="love-quote">
+                        "You're not just my girlfriend - you're my best friend, my safe place, my greatest blessing."
+                    </div>
+                    <p><em>Add your specific reasons - her laugh, her [specific trait], the way she [thing she does], how she makes you feel...</em></p>
+                </div>
+            </div>
+
+            <div class="memory-section" onclick="toggleMemory('memory5')">
+                <h2>🎊 These Amazing 3.5 Years</h2>
+                <h3>Every single day has been a gift</h3>
+                <div class="memory-content" id="memory5">
+                    <div class="photo-placeholder">📅</div>
+                    <p><strong>Our Journey So Far</strong></p>
+                    <p>From [specific early memory] to [recent memory], we've built something beautiful together. Through every season, every challenge, every celebration - you've been my constant. These 42 months have been the happiest of my life.</p>
+                    <div class="love-quote">
+                        "Every day with you feels like a new page in the most beautiful love story ever written."
+                    </div>
+                    <p><em>Add your timeline - major milestones, how you've grown together, special anniversaries, challenges you've overcome...</em></p>
+                </div>
+            </div>
+
+            <div class="final-message">
+                <h2>💝 My Heart is So Full</h2>
+                <p>After reliving all these incredible memories with you, my heart feels like it's going to burst with love.</p>
+                <p><strong>Every single day with you has been a gift.</strong></p>
+                <br>
+                <p>From that special day at Batok Garden when HarWinsha began, to our ayam penyet dates, to our movie nights... you've filled my life with so much joy and love.</p>
+                <br>
+                <p>These 3 years and 6 months have been absolutely magical, and I can't imagine my life without you in it.</p>
+                <br>
+                <div style="font-size: 24px; margin: 30px 0; color: #e74c3c;">
+                    <strong>You are my everything, my love. 💕</strong>
+                </div>
+                <br>
+                <p style="font-size: 16px; color: #7f8c8d;"><em>I love you more than words can ever express... and I have something very special to tell you tonight. 😉✨</em></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Create beautiful floating sparkles
+        function createSparkles() {
+            const sparklesContainer = document.getElementById('sparkles');
+            for (let i = 0; i < 30; i++) {
+                const sparkle = document.createElement('div');
+                sparkle.className = 'sparkle';
+                sparkle.style.left = Math.random() * 100 + '%';
+                sparkle.style.animationDelay = Math.random() * 4 + 's';
+                sparkle.style.animationDuration = (Math.random() * 3 + 3) + 's';
+                sparklesContainer.appendChild(sparkle);
+            }
+        }
+
+        // Password check - CUSTOMIZE THIS WITH YOUR SPECIAL DATE
+        function checkPassword() {
+            const password = document.getElementById('passwordInput').value.trim();
+            
+            // Your special date - The start of HarWinsha!
+            // Format: DDMMYYYY 
+            const correctPassword = '14032022'; // The start of HarWinsha
+            
+            if (password === correctPassword) {
+                document.getElementById('loginScreen').style.display = 'none';
+                document.getElementById('mainContent').style.display = 'block';
+                createSparkles();
+                
+                // Add a little celebration effect
+                setTimeout(() => {
+                    alert('Welcome to our love story, my darling! 💕');
+                }, 500);
+            } else {
+                const errorMsg = document.getElementById('errorMsg');
+                const passwordInput = document.getElementById('passwordInput');
+                
+                errorMsg.style.display = 'block';
+                passwordInput.style.borderColor = '#e74c3c';
+                passwordInput.style.backgroundColor = 'rgba(231, 76, 60, 0.1)';
+                
+                // Clear error after 4 seconds
+                setTimeout(() => {
+                    errorMsg.style.display = 'none';
+                    passwordInput.style.borderColor = '#ddd';
+                    passwordInput.style.backgroundColor = 'white';
+                }, 4000);
+            }
+        }
+
+        // Toggle memory sections with smooth animation
+        function toggleMemory(memoryId) {
+            const memoryContent = document.getElementById(memoryId);
+            const allMemories = document.querySelectorAll('.memory-content');
+            
+            // Close all other memories first
+            allMemories.forEach(memory => {
+                if (memory.id !== memoryId && memory.style.display === 'block') {
+                    memory.style.display = 'none';
+                }
+            });
+            
+            // Toggle the clicked memory
+            if (memoryContent.style.display === 'none' || memoryContent.style.display === '') {
+                memoryContent.style.display = 'block';
+                // Scroll to the memory section
+                memoryContent.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            } else {
+                memoryContent.style.display = 'none';
+            }
+        }
+
+        // Allow Enter key to submit password
+        document.getElementById('passwordInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                checkPassword();
+            }
+        });
+
+        // Add some initial sparkles even on login screen
+        createSparkles();
+    </script>
+</body>
+</html>
